@@ -1,0 +1,39 @@
+// get html
+GET http://localhost:3000/
+
+###
+// get all products
+GET http://localhost:3000/products
+
+###
+// get product by id
+GET http://localhost:3000/products/0
+
+###
+// get product reviews by id
+GET http://localhost:3000/products/0/reviews
+
+###
+// search products
+GET http://localhost:3000/search?name=metal&instock=true
+
+###
+// create new product
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+    "name": "test",
+    "price": 99,
+    "dimensions": {"x": 1, "y": 2, "z": 3},
+    "stock": 100
+}
+
+###
+// create product review
+POST http://localhost:3000/products/0/reviews
+Content-Type: application/json
+
+{
+    "rating": 10
+}
