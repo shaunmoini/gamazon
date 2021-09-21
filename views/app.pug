@@ -1,0 +1,15 @@
+html
+
+  include ../includes/head.pug
+
+  body
+    include ../includes/header.pug
+
+    div.list-container
+      - var products=products
+      each obj in products
+        div.list-item
+          p=obj.name
+          p='$' + obj.price
+          p='Stock: ' + obj.stock
+          p=obj.reviews ? 'Reviews: ' + obj.reviews : 'No Reviews'

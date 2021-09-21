@@ -1,0 +1,13 @@
+html 
+
+  include ../includes/head.pug
+
+  body
+    include ../includes/header.pug
+
+    h3 Add Product Review
+
+    div.form-container
+      input(id='product-id' placeholder='Product ID')
+      input(id='rating' placeholder='Rating from 1-10')
+      button(onclick='addReview()') Submit

@@ -8,14 +8,20 @@ GET http://localhost:3000/products
 ###
 // get product by id
 GET http://localhost:3000/products/0
+# Accept: text/html
 
 ###
 // get product reviews by id
 GET http://localhost:3000/products/0/reviews
+# Accept: text/html
 
 ###
 // search products
 GET http://localhost:3000/search?name=metal&instock=true
+
+###
+// get new product html form
+GET http://localhost:3000/addproduct
 
 ###
 // create new product

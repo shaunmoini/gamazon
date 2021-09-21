@@ -1,0 +1,17 @@
+html 
+
+  include ../includes/head.pug
+
+  body
+    include ../includes/header.pug
+
+    h3 Add Product 
+
+    div.form-container
+      input(id='name' placeholder='Name')
+      input(id='price' placeholder='Price')
+      input(id='dim-x' placeholder='dim x')
+      input(id='dim-y' placeholder='dim y')
+      input(id='dim-z' placeholder='dim z')
+      input(id='stock' placeholder='Stock')
+      button(onclick='addProduct()') Submit

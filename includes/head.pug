@@ -1,0 +1,174 @@
+head
+  title='4601 Lab#1'
+
+  style.
+    body {
+      margin: 0px;
+      background: whitesmoke;
+    }
+    h1, h3 {
+      text-align: center;
+      margin: 0px 0px 15px 0px;
+    }
+
+    #header-container {
+      margin-bottom: 10px;
+      padding: 15px 0px 20px 0px;
+      color: whitesmoke;
+      background: #232f3e;
+      position: sticky;
+      top: 0;
+    }
+
+    #navigation-div{
+      display: flex;
+      justify-content: center;
+    }
+    #navigation-div button {
+      margin-left: 5px;
+      padding: 5px;
+      background: #ff9900;
+      color: white;
+      border-radius: 5px;
+      outline: none;
+      border: none;
+    }
+    #search-input {
+      width: 50%;
+      padding: 5px;
+      border-radius: 5px;
+      outline: none;
+      border: none;
+    }
+
+    .form-container {
+      text-align: center;
+    }
+    .form-container input {
+      margin: 0px auto 10px auto;
+      padding: 5px;
+      display: block;
+      border-radius: 5px;
+      border: 2px solid #ff9900;
+      outline: none;
+    }
+    .form-container button {
+      padding: 5px;
+      background: #ff9900;
+      color: white;
+      border-radius: 5px;
+      outline: none;
+      border: none;
+    }
+
+    .list-container {
+      padding: 0px 10px;
+    }
+    .list-item {
+      background: white;
+      padding: 0px 20px;
+      margin: 0px auto 10px auto;
+      max-width: 1000px;
+      border-radius: 10px;
+      border: 1px solid gray;
+    }
+
+  script.
+    document.addEventListener('DOMContentLoaded', (event => {
+      var queryStr = location.search;
+      if (queryStr.includes('name')) {
+        document.querySelector('#search-input').value = queryStr.substring(6, queryStr.indexOf('&'));
+      }
+      if (queryStr.includes('instock=true')) {
+        document.querySelector('#stock-checkbox').checked = true;
+      }
+    }))
+
+    function search() {
+      var userInput = document.querySelector('#search-input').value.toLowerCase().trim();
+      var inStock = document.querySelector('#stock-checkbox').checked;
+
+      if (userInput == parseInt(userInput, 10)) {
+          window.location.href=`http://${location.host}/products/${userInput}`;
+      }
+      else {
+        if(!userInput) {
+          window.location.href=`http://${location.host}/search?instock=${inStock}`;
+        } else {
+          window.location.href=`http://${location.host}/search?name=${userInput}&instock=${inStock}`;
+        }
+      }
+    }
+
+    function getProductReviews() {
+      var userInput = document.querySelector('#search-input').value;
+
+      if (userInput == parseInt(userInput, 10)) {
+          window.location.href=`http://${location.host}/products/${userInput}/reviews`;
+      } else {
+        alert('Please enter valid product ID!')
+      }
+    }
+
+    function addProduct() {
+      const req = new XMLHttpRequest();
+      const url = `http://${location.host}/products`
+      const json = {
+        name: document.querySelector('#name').value.trim(),
+        price: document.querySelector('#price').value.trim(),
+        dimensions: {
+          x: document.querySelector('#dim-x').value.trim(),
+          y: document.querySelector('#dim-y').value.trim(),
+          z: document.querySelector('#dim-z').value.trim()
+        },
+        stock: document.querySelector('#stock').value.trim()
+      }
+
+      req.onreadystatechange = () => {
+        if (req.readyState == 4) {
+          if (req.status == 201) {
+            alert('Product added :)');
+          }
+          else {
+            alert('Invalid input, please try again >:(');
+          }
+        }
+      }
+      req.onerror = () => {
+        console.error(req.statusText);
+      }
+
+      req.open('POST', url, true);
+      req.setRequestHeader('Content-Type', 'application/json');
+      req.send(JSON.stringify(json));
+    }
+
+    function addReview() {
+      const productID = document.querySelector('#product-id').value.trim();
+      if(!productID) {
+        alert('Must provide product ID!');
+        return;
+      }
+
+      const req = new XMLHttpRequest();
+      const url = `http://${location.host}/products/${productID}/reviews`
+      const json = { rating: document.querySelector('#rating').value.trim() }
+
+      req.onreadystatechange = () => {
+        if (req.readyState == 4) {
+          if (req.status == 201) {
+            alert('Review added :)');
+          }
+          else {
+            alert('Invalid input, please try again >:(');
+          }
+        }
+      }
+      req.onerror = () => {
+        console.error(req.statusText);
+      }
+
+      req.open('POST', url, true);
+      req.setRequestHeader('Content-Type', 'application/json');
+      req.send(JSON.stringify(json));
+    }

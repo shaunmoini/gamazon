@@ -1,0 +1,11 @@
+div#header-container
+  h1(onclick='window.location.href=`http://${location.host}`') gamazon
+
+  div#navigation-div
+    p(style='white-space: nowrap;') In Stock
+    input(id='stock-checkbox' type='checkbox' onclick='search()')
+    input(id='search-input' type='search' placeholder='Search using product name or ID, or get reviews using ID')
+    button(onclick='search()') Search
+    button(onclick='getProductReviews()') Get Reviews
+    button(onclick='window.location.href=`http://${location.host}/addproduct`') Add Product
+    button(onclick='window.location.href=`http://${location.host}/addreview`') Add Review
