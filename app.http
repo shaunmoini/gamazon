@@ -7,12 +7,12 @@ GET http://localhost:3000/products
 
 ###
 // get product by id
-GET http://localhost:3000/products/0
+GET http://localhost:3000/products/123
 # Accept: text/html
 
 ###
 // get product reviews by id
-GET http://localhost:3000/products/0/reviews
+GET http://localhost:3000/products/123/reviews
 # Accept: text/html
 
 ###
@@ -20,8 +20,12 @@ GET http://localhost:3000/products/0/reviews
 GET http://localhost:3000/search?name=metal&instock=true
 
 ###
-// get new product html form
-GET http://localhost:3000/addproduct
+// get orders
+GET http://localhost:3000/orders
+
+###
+// get order by id 
+GET http://localhost:3000/orders/0
 
 ###
 // create new product
@@ -42,4 +46,21 @@ Content-Type: application/json
 
 {
     "rating": 10
+}
+
+###
+// create new order
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+    "customerName": "test",
+    "order": [
+        {
+            "product_id": 18, "quantity": 1
+        },
+        {
+            "product_id": 19, "quantity": 1
+        }
+    ]
 }
